@@ -42,26 +42,36 @@
         </v-list-item>
         </v-row>
         <v-list-item>
-        <v-row>
-          <v-col>
-            <v-list-item-content>
-              <v-list-item-title class="headline mb-1 text-wrap">{{ this.weatherInfo.temp }}</v-list-item-title>
-              <v-list-item-subtitle>Feels like: {{ this.weatherInfo.feelsLike }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-col>
-          <v-col cols="2" align="right" class="px-0">
-            <v-list-item-subtitle>min:</v-list-item-subtitle>
-            <v-list-item-subtitle>max:</v-list-item-subtitle>
-            <v-list-item-subtitle>Hum:</v-list-item-subtitle>
-            <v-list-item-subtitle>Wind:</v-list-item-subtitle>
-          </v-col>
-          <v-col cols="3" align="left" class="px-2">
-            <v-list-item-subtitle>{{ this.weatherInfo.minTemp }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{ this.weatherInfo.maxTemp }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{ this.weatherInfo.humidity }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{ this.weatherInfo.wind }}</v-list-item-subtitle>
-          </v-col>
-        </v-row>
+          <v-row>
+            <v-col>
+              <v-list-item-content class="pt-0">
+                <v-list-item-title class="headline mb-1 text-wrap">{{ this.weatherInfo.temp }}</v-list-item-title>
+                <v-list-item-subtitle>Feels like: {{ this.weatherInfo.feelsLike }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-col>
+            <v-col cols="2" align="right" class="px-0">
+              <v-list-item-subtitle>min:</v-list-item-subtitle>
+              <v-list-item-subtitle>max:</v-list-item-subtitle>
+              <v-list-item-subtitle>Hum:</v-list-item-subtitle>
+              <v-list-item-subtitle>Wind:</v-list-item-subtitle>
+            </v-col>
+            <v-col cols="3" align="left" class="px-2">
+              <v-list-item-subtitle>{{ this.weatherInfo.minTemp }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ this.weatherInfo.maxTemp }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ this.weatherInfo.humidity }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ this.weatherInfo.wind }}</v-list-item-subtitle>
+            </v-col>
+          </v-row>
+        </v-list-item>
+        <v-list-item>
+          <v-row class="py-0 grey lighten--4" >
+            <v-col cols="12" class="py-0">
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-checkbox v-model="inCelcius" label="Show in Celcius"></v-checkbox>
+              </v-card-actions>
+            </v-col>
+          </v-row>
         </v-list-item>
       </v-card>
     </v-container>
@@ -76,7 +86,8 @@ export default {
   data() {
     return {
       zipcode: '',
-      weatherInfo: {}
+      weatherInfo: {},
+      inCelcius: false,
     }
   },
 
@@ -95,8 +106,8 @@ export default {
         humidity: data['main']['humidity'],
         wind: data['wind']['speed'],
         country: data['sys']['country'],
-        sunrise: new Date(data['sys']['sunrise']),
-        sunset: new Date(data['sys']['sunset']),
+        sunrise: data['sys']['sunrise'],
+        sunset: data['sys']['sunset'],
         name: data['name']
       }
       this.weatherInfo = weatherObject

@@ -65,8 +65,9 @@
               <v-list-item-subtitle v-if="!showCelcius">{{ inFahrenheit(this.weatherInfo.maxTemp) }}°F</v-list-item-subtitle>
               <v-list-item-subtitle v-if="showCelcius">{{ inCelcius(this.weatherInfo.minTemp) }}°C</v-list-item-subtitle>
               <v-list-item-subtitle v-if="showCelcius">{{ inCelcius(this.weatherInfo.maxTemp) }}°C</v-list-item-subtitle>
-              <v-list-item-subtitle>{{ this.weatherInfo.humidity }}</v-list-item-subtitle>
-              <v-list-item-subtitle>{{ this.weatherInfo.wind }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ this.weatherInfo.humidity }}%</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!showCelcius">{{ Math.round(this.weatherInfo.wind * 2.237)}} mph</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="showCelcius">{{ this.weatherInfo.wind }} m/s</v-list-item-subtitle>
             </v-col>
           </v-list-item>
         </v-row>

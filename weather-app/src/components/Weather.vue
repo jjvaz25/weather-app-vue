@@ -16,15 +16,15 @@
 
     <v-container>
       <v-card
-        class="mx-auto"
+        class="mx-auto grey lighten-3"
         max-width="400"
         outlined
       >
-      <v-row>
+      <v-row class="px-0 mx-0">
         <v-list-item>
           <v-col cols="7">
             <v-list-item-content>
-              <v-list-item-title class="headline mb-1 text-wrap">{{ this.weatherInfo.name }}</v-list-item-title>
+              <v-list-item-title class="headline mb-1 text-wrap font-weight-bold">{{ this.weatherInfo.name }}</v-list-item-title>
               <v-list-item-subtitle>{{ this.formatDate() }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-col>
@@ -41,11 +41,12 @@
           </v-col>
         </v-list-item>
         </v-row>
-        <v-list-item>
-          <v-row>
-            <v-col>
+        
+        <v-row class="px-0 mx-0">
+          <v-list-item>
+            <v-col cols="7">
               <v-list-item-content class="pt-0">
-                <v-list-item-title class="headline mb-1 text-wrap">{{ this.weatherInfo.temp }}</v-list-item-title>
+                <v-list-item-title class="headline mb-1 text-wrap font-weight-bold">{{ this.weatherInfo.temp }}</v-list-item-title>
                 <v-list-item-subtitle>Feels like: {{ this.weatherInfo.feelsLike }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-col>
@@ -61,18 +62,20 @@
               <v-list-item-subtitle>{{ this.weatherInfo.humidity }}</v-list-item-subtitle>
               <v-list-item-subtitle>{{ this.weatherInfo.wind }}</v-list-item-subtitle>
             </v-col>
-          </v-row>
-        </v-list-item>
-        <v-list-item>
-          <v-row class="py-0 grey lighten--4" >
+          </v-list-item>
+        </v-row>
+      
+        <v-row class="px-0 mx-0">
+          <v-list-item>
             <v-col cols="12" class="py-0">
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-checkbox v-model="inCelcius" label="Show in Celcius"></v-checkbox>
               </v-card-actions>
             </v-col>
-          </v-row>
-        </v-list-item>
+          </v-list-item>
+        </v-row>
+        
       </v-card>
     </v-container>
   </div>

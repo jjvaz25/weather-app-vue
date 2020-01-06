@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <top-nav />
-    <v-content>
+    <v-content class="grey lighten-2">
       <weather />
     </v-content>
     <bottom-footer />

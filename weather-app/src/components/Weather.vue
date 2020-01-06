@@ -1,11 +1,12 @@
 <template>
   <div class="weather">
     <v-container style="max-width: 300px">
-      <v-form align="center" @submit.prevent="getWeather">
+      <v-form ref="form" align="center" @submit.prevent="getWeather" autocomplete="off">
         <v-text-field 
           class="v-input input"
           v-model="zipcode" 
           label="Enter a zipcode"
+          :rules="inputRules"
         >
         </v-text-field>
         <v-btn class="primary mt-2" type="submit">
@@ -101,15 +102,19 @@ export default {
       weatherInfo: {},
       showCelcius: false,
       weatherData: false,
+      inputRules: [
+        v => (v && v.length <= 5) || 'Please enter a valid 5-digit USA zipcode'
+      ]
     }
   },
 
   methods: {
     async getWeather() {
-      const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.zipcode},us&APPID=115cf28cc50f49d3ab9fd208f9487bc4`, {mode: 'cors'})
-      const data = await response.json()
-      console.log(data)
-      let weatherObject = {
+      if (this.$refs.form.validate()) {
+        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.zipcode},us&APPID=115cf28cc50f49d3ab9fd208f9487bc4`, {mode: 'cors'})
+        const data = await response.json()
+        console.log(data)
+        let weatherObject = {
         main: data['weather'][0]['main'],
         description: data['weather'][0]['description'],
         temp: data['main']['temp'],
@@ -128,6 +133,9 @@ export default {
       console.log(this.weatherInfo)
       this.weatherData = true
       this.zipcode = ''
+      this.$refs.form.reset()
+      }
+
     },
     formatDate() {
       const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];

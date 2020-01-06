@@ -111,31 +111,33 @@ export default {
   methods: {
     async getWeather() {
       if (this.$refs.form.validate()) {
-        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.zipcode},us&APPID=115cf28cc50f49d3ab9fd208f9487bc4`, {mode: 'cors'})
-        const data = await response.json()
-        console.log(data)
-        let weatherObject = {
-        main: data['weather'][0]['main'],
-        description: data['weather'][0]['description'],
-        temp: data['main']['temp'],
-        feelsLike: data['main']['feels_like'],
-        minTemp: data['main']['temp_min'],
-        maxTemp: data['main']['temp_max'],
-        humidity: data['main']['humidity'],
-        wind: data['wind']['speed'],
-        // country: data['sys']['country'],
-        // sunrise: data['sys']['sunrise'],
-        // sunset: data['sys']['sunset'],
-        name: data['name'],
-        icon: data['weather'][0]['icon']
+        try{
+          const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.zipcode},us&APPID=115cf28cc50f49d3ab9fd208f9487bc4`, {mode: 'cors'})
+          const data = await response.json()
+          let weatherObject = {
+            main: data['weather'][0]['main'],
+            description: data['weather'][0]['description'],
+            temp: data['main']['temp'],
+            feelsLike: data['main']['feels_like'],
+            minTemp: data['main']['temp_min'],
+            maxTemp: data['main']['temp_max'],
+            humidity: data['main']['humidity'],
+            wind: data['wind']['speed'],
+            // country: data['sys']['country'],
+            // sunrise: data['sys']['sunrise'],
+            // sunset: data['sys']['sunset'],
+            name: data['name'],
+            icon: data['weather'][0]['icon']
+          }
+          this.weatherInfo = weatherObject
+          this.weatherData = true
+          this.zipcode = ''
+          this.$refs.form.reset()
+        } catch (err) {
+          console.error(err)
+          alert('Zipcode not found. Please make sure you entered a valid 5-digit USA zip code')
+        }
       }
-      this.weatherInfo = weatherObject
-      console.log(this.weatherInfo)
-      this.weatherData = true
-      this.zipcode = ''
-      this.$refs.form.reset()
-      }
-
     },
     formatDate() {
       const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];

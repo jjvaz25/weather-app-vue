@@ -1,14 +1,14 @@
 <template>
   <div class="weather">
     <v-container style="max-width: 300px">
-      <v-form align="center">
+      <v-form align="center" @submit.prevent="getWeather">
         <v-text-field 
           class="v-input input"
           v-model="zipcode" 
           label="Enter a zipcode"
         >
         </v-text-field>
-        <v-btn class="primary mt-2" @click="getWeather">
+        <v-btn class="primary mt-2" type="submit">
           search
         </v-btn>
       </v-form>
@@ -19,6 +19,7 @@
         class="mx-auto grey lighten-3"
         max-width="400"
         outlined
+        v-if="weatherData"
       >
       <v-row class="px-0 mx-0">
         <v-list-item>
@@ -28,14 +29,15 @@
               <v-list-item-subtitle>{{ this.formatDate() }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-col>
-          
           <v-col cols="5" align="center">
             <v-list-item-avatar
               tile
               size="80"
-              color="primary"
               class="mx-auto"
+              outlined
+              color="primary"
             >
+              <img :src="`http://openweathermap.org/img/wn/${this.weatherInfo.icon}@2x.png`" alt="">
             </v-list-item-avatar>
             <v-list-item-subtitle>{{ this.weatherInfo.description }}</v-list-item-subtitle>
           </v-col>
@@ -98,6 +100,7 @@ export default {
       zipcode: '',
       weatherInfo: {},
       showCelcius: false,
+      weatherData: false,
     }
   },
 
@@ -115,13 +118,15 @@ export default {
         maxTemp: data['main']['temp_max'],
         humidity: data['main']['humidity'],
         wind: data['wind']['speed'],
-        country: data['sys']['country'],
-        sunrise: data['sys']['sunrise'],
-        sunset: data['sys']['sunset'],
-        name: data['name']
+        // country: data['sys']['country'],
+        // sunrise: data['sys']['sunrise'],
+        // sunset: data['sys']['sunset'],
+        name: data['name'],
+        icon: data['weather'][0]['icon']
       }
       this.weatherInfo = weatherObject
       console.log(this.weatherInfo)
+      this.weatherData = true
       this.zipcode = ''
     },
     formatDate() {

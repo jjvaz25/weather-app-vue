@@ -150,6 +150,7 @@ export default {
       return Math.round(fahrenheit)
     },
     inCelcius(kelvinNum) {
+      this.$refs.form.reset()
       let celcius = kelvinNum - 273.15
       return Math.round(celcius)
     }  

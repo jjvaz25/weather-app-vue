@@ -2,7 +2,7 @@
   <v-app>
     <top-nav />
     <v-content class="grey lighten-2">
-      <weather />
+      <router-view></router-view>
     </v-content>
     <bottom-footer />
   </v-app>
@@ -11,7 +11,6 @@
 <script>
 import TopNav from './components/TopNav'
 import BottomFooter from './components/BottomFooter'
-import Weather from './components/Weather'
 
 export default {
   name: 'App',
@@ -19,7 +18,6 @@ export default {
   components: {
     'top-nav': TopNav,
     'bottom-footer': BottomFooter,
-    'weather': Weather
   },
 
   data: () => ({

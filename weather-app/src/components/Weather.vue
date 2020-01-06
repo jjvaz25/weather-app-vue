@@ -10,7 +10,7 @@
           :rules="inputRules"
         >
         </v-text-field>
-        <v-btn class="primary mt-2" type="submit">
+        <v-btn class="primary mt-2" type="submit" :loading="loading">
           search
         </v-btn>
       </v-form>
@@ -104,13 +104,15 @@ export default {
       weatherData: false,
       inputRules: [
         v => (v && v.length <= 5) || 'Please enter a valid 5-digit USA zipcode'
-      ]
+      ],
+      loading: false
     }
   },
 
   methods: {
     async getWeather() {
       if (this.$refs.form.validate()) {
+        this.loading = true
         try{
           const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.zipcode},us&APPID=115cf28cc50f49d3ab9fd208f9487bc4`, {mode: 'cors'})
           const data = await response.json()
@@ -123,9 +125,6 @@ export default {
             maxTemp: data['main']['temp_max'],
             humidity: data['main']['humidity'],
             wind: data['wind']['speed'],
-            // country: data['sys']['country'],
-            // sunrise: data['sys']['sunrise'],
-            // sunset: data['sys']['sunset'],
             name: data['name'],
             icon: data['weather'][0]['icon']
           }
@@ -133,6 +132,7 @@ export default {
           this.weatherData = true
           this.zipcode = ''
           this.$refs.form.reset()
+          this.loading = false
         } catch (err) {
           console.error(err)
           alert('Zipcode not found. Please make sure you entered a valid 5-digit USA zip code')

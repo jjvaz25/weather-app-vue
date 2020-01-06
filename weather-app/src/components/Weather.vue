@@ -1,5 +1,6 @@
 <template>
   <div class="weather">
+
     <v-container style="max-width: 300px">
       <v-form ref="form" align="center" @submit.prevent="getWeather" autocomplete="off">
         <v-text-field 
@@ -44,7 +45,7 @@
           </v-col>
         </v-list-item>
         </v-row>
-        
+        <v-divider></v-divider>
         <v-row class="px-0 mx-0">
           <v-list-item>
             <v-col cols="7">
@@ -74,7 +75,6 @@
             </v-col>
           </v-list-item>
         </v-row>
-      
         <v-row class="px-0 mx-0">
           <v-list-item>
             <v-col cols="12" class="py-0">

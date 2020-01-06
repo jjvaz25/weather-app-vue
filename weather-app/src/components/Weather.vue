@@ -114,7 +114,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true
         try{
-          const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.zipcode},us&APPID=115cf28cc50f49d3ab9fd208f9487bc4`, {mode: 'cors'})
+          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.zipcode},us&APPID=115cf28cc50f49d3ab9fd208f9487bc4`, {mode: 'cors'})
           const data = await response.json()
           let weatherObject = {
             main: data['weather'][0]['main'],

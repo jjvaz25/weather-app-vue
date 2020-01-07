@@ -136,6 +136,7 @@ export default {
         } catch (err) {
           console.error(err)
           alert('Zipcode not found. Please make sure you entered a valid 5-digit USA zip code')
+          this.loading = false
         }
       }
     },
